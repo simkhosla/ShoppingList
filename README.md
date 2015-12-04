@@ -1,2 +1,3 @@
-# sinatra_boilerplate
-A boilerplate for Sinatra applications
+# Shopping List Application
+A shopping list application made with Sinatra with user verification. 
+
