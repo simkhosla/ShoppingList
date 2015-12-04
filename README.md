@@ -1,2 +1,2 @@
-# ShoppingList
-A shopping list application using Sinatra with user verification.
+# sinatra_boilerplate
+A boilerplate for Sinatra applications
