@@ -1,19 +1,13 @@
 class ApplicationController < Sinatra::Base
 
-<<<<<<< HEAD
 require 'bundler'
 Bundler.require
-=======
+
   ActiveRecord::Base.establish_connection(
     :database => 'shoppinglistapp',
     :adapter => 'postgresql'
   )
->>>>>>> 6a431519aa6cc323109b3b964cb91e649be5728b
 
-ActiveRecord::Base.establish_connection(
-  :database => 'shoppinglistapp',
-  :adapter => 'postgresql'
-)
 
 set :views, File.expand_path('../../views', __FILE__)
 set :public_dir, File.expand_path('../../public', __FILE__)
@@ -34,6 +28,8 @@ def does_user_exist(username)
   end
 end
 
+
+
 def authorization_check
   if session[:current_user] == nil
     redirect '/not_authorized'
@@ -44,7 +40,6 @@ end
 
 
 get '/lists' do
-
 
   erb :lists
 
@@ -83,7 +78,7 @@ post '/register' do
 
   session[:current_user] = user
 
-  redirect '/'  #instead of calling a view to render, redirect to a route. this forces the route to change. the URL will change.
+  redirect '/lists'  #instead of calling a view to render, redirect to a route. this forces the route to change. the URL will change.
 
 end
 
@@ -121,5 +116,84 @@ end
 # not_found do
 #   erb :not_found
 # end
+
+get '/' do
+  @items = Item.all
+  erb :listss
+
+end
+
+
+get '/create' do
+  erb :create
+end
+
+post '/create' do
+
+  @items = Item.all
+
+  @item = Item.new
+  @item.itemtext = params[:itemtext]
+  @item.quantity = params[:quantity]
+
+  if @item.save
+  erb :lists
+  else
+  erb :create
+  end
+
+end
+
+
+#update
+get '/update/:id' do
+
+  @item = Items.find(params[:id])
+
+  erb :update
+
+end
+
+
+
+post '/update' do
+  @items = Items.all
+
+  @item = Items.find(params[:id])
+
+  @item.name = params[:name]
+  @item.quantity = params[:quantity]
+
+
+  if @item.save
+  erb :lists
+  else
+  erb :update
+  end
+
+end
+
+#destroy
+get '/destroy/:id' do
+    @item = Items.find(params[:id])
+
+    erb :destroy
+
+end
+
+
+post '/destroy' do
+  @items = Items.all
+
+  @item = Items.find(params[:id])
+
+  if @item.destroy
+    erb :shoppinglists
+  else
+    erb :destroy
+  end
+
+end
+
 
 end
