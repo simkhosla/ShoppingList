@@ -75,6 +75,7 @@ function editItem (id) {
       };
 
     function addBtn() {
+      $('#')
       $('#add-item').show('fast', function() {
 
       });
