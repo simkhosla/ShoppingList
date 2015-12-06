@@ -1,88 +1,82 @@
 
-$(document).ready(function() {
-
-
-  console.log('list javascript loaded');
-
 
 function editItem (id) {
-    console.log(id+"edit");
-  $(id+"edit").click(function() {
 
-    //ANIMATIONS BELOW
-
-    console.log('edit button clicked');
-
-    $(id+"edit").hide('fast', function() {
-      //animation occured
-    });
-    $(id+"text").hide('fast', function() {
-      //animation occured
+    $("#"+id+"edit").hide('fast', function() {
+      console.log("edit button is hidden")
     });
 
-    var itemText = $(id+"text").text();
-
-    $(id+"input").attr('placeholder', itemText);
-
-    $(id+"input").show('fast', function() {
-      //animation occured
+    $("#"+id+"text").hide('fast', function() {
+      console.log("text is hidden")
     });
 
-    $(id+"check").show('fast', function() {
-      //animation occured
+    $("#"+id+"qtext").hide('fast', function() {
+      console.log("quantity text is hidden")
     });
 
-    $(id+"delete").show('fast', function() {
+    var itemText = $("#"+id+"text").text();
+
+    $("#"+id+"input").attr('placeholder', itemText);
+      //puts the current text in as placeholder in input box
+
+    var quantityText = $("#"+id+"qtext").text();
+
+    $("#"+id+"qinput").attr('placeholder', quantityText);
+
+    $("#"+id+"qinput").show('fast', function() {
       //animation occured
     });
 
-  });
-  }
-
-
-  function renameItem () {
-
-
-    $(id+"check").click(function() {
-        console.log("check button clicked");
-
-        var newText = $(id+"input").val();
-
-        console.log($(id+"input").val());
-
-        $(id+"text").text(newText);
-
-        $(id+"input").hide('fast', function() {
-          //animation occured
-        });
-
-        $(id+"text").show('fast', function() {
-          //animation occured
-        });
-
-        $(id+"check").hide('fast', function() {
-          //animation occured
-        });
-
-        $(id+"delete").hide('fast', function() {
-          //animation occured
-        });
-
-        $(id+"edit").show('fast', function() {
-          //animation occured
-        });
-
-
+    $("#"+id+"input").show('fast', function() {
+      //animation occured
     });
 
-  }
+    $("#"+id+"check").show('fast', function() {
+      //animation occured
+    });
 
-  function deleteItem(id) {
-
-  }
-
-
+  };
 
 
+  function renameItem (id) {
 
-}); //end of script
+        var newText = $("#"+id+"input").val();
+        var newqText = $("#"+id+"qinput").val();
+
+        console.log($("#"+id+"input").val());
+
+        $("#"+id+"text").text(newText);
+        $("#"+id+"qtext").text(newqText);
+        //variables for new quantity and new text
+
+        $("#"+id+"input").hide('fast', function() {
+          //text input box hidden
+        });
+
+        $("#"+id+"qinput").hide('fast', function() {
+          //quantity input box hidden
+        });
+
+        $("#"+id+"text").show('fast', function() {
+          //shows item text
+        });
+
+        $("#"+id+"qtext").show('fast', function() {
+          //shows item quantity again
+        });
+
+        $("#"+id+"check").hide('fast', function() {
+          //hides check button
+        });
+
+        $("#"+id+"edit").show('fast', function() {
+          //animation occured
+        });
+      };
+
+    function addBtn() {
+      $('#add-item').show('fast', function() {
+
+      });
+      console.log ('add item clicked')
+    }

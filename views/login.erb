@@ -15,3 +15,8 @@
   </form>
   <p> <a href ="/register"> Register!</a></p>
   </div>
+  <% if @message %>
+  <p class ="message">
+    <%=@message %>
+  </p>
+  <%end%>

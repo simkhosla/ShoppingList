@@ -8,4 +8,4 @@ require './models/item'
 run Sinatra::Application
 
 map('/') { run AccountsController }
-map('/') { run ItemsController }
+map('/items') { run ItemsController }

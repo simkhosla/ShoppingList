@@ -40,160 +40,22 @@ end
 
 
 get '/lists' do
-
+  @items = Item.all
   erb :lists
 
 end
 
 
-get '/' do
-
-  authorization_check
-
-  @user_name = session[:current_user].user_name
-
-  erb :lists
-
+not_found do
+  erb :not_found
 end
-
-
-
-get '/register' do
-
-  erb :register
-
-end
-
-post '/register' do
-
-  p params
-  # check ig the user someone is trying to register exists or not
-  if does_user_exist(params[:user_name]) == true
-  # return erb :view_name ---- if you'd rather send to a different page instead of the JSON message
-  end
-  # if we make it this far, the user does not exist. so let's make it!
-  user = Account.create(user_email: params[:user_email], user_name: params[:user_name], password: params[:password])
-
-  p user
-
-  session[:current_user] = user
-
-  redirect '/lists'  #instead of calling a view to render, redirect to a route. this forces the route to change. the URL will change.
-
-end
-
-get '/login' do
-
-  erb :login
-
-end
-
-post '/login' do
-    user = Account.authenticate(params[:user_name], params[:password])
-
-    if user
-      session[:current_user] = user
-      redirect '/lists'
-    else
-      @message = "Your password is incorrect"
-    end
-
-end
-
-get '/logout' do
-  authorization_check
-  session[:current_user] = nil
-  redirect '/'
-end
-
-get '/not_authorized' do
-
-  erb :not_authorized
-
-end
-
-#
-# not_found do
-#   erb :not_found
-# end
 
 get '/' do
   @items = Item.all
-  erb :listss
-
-end
-
-
-get '/create' do
-  erb :create
-end
-
-post '/create' do
-
-  @items = Item.all
-
-  @item = Item.new
-  @item.itemtext = params[:itemtext]
-  @item.quantity = params[:quantity]
-
-  if @item.save
   erb :lists
-  else
-  erb :create
-  end
 
 end
 
-
-#update
-get '/update/:id' do
-
-  @item = Items.find(params[:id])
-
-  erb :update
-
-end
-
-
-
-post '/update' do
-  @items = Items.all
-
-  @item = Items.find(params[:id])
-
-  @item.name = params[:name]
-  @item.quantity = params[:quantity]
-
-
-  if @item.save
-  erb :lists
-  else
-  erb :update
-  end
-
-end
-
-#destroy
-get '/destroy/:id' do
-    @item = Items.find(params[:id])
-
-    erb :destroy
-
-end
-
-
-post '/destroy' do
-  @items = Items.all
-
-  @item = Items.find(params[:id])
-
-  if @item.destroy
-    erb :shoppinglists
-  else
-    erb :destroy
-  end
-
-end
 
 
 end

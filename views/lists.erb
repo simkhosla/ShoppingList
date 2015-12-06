@@ -1,43 +1,62 @@
+
+<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js">
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" >
 <script type="text/javascript" src="/lists.js"> </script>
+
 <div class = "user-login">
   <a href = "/lists"><button id = "mylists" class = "ui-btn"><%= @user_name %>'S LIST</button></a>
   <a href = "/logout"><button id ="logout" class="ui-btn" >LOGOUT ➲</button></a>
 </div>
 
-  <p class ="message">
-    <div id="welcomeDiv">Welcome back <em><%= @user_name %></em> ! </div>
-    <div id="deleteDiv">
-      <p>Are you sure you want to delete this?</p>
-      <form action="/destroy" method="post">
-      <!-- <input type="hidden" name="id" value="<%= @item.id %>"></input> -->
-      <p><input type="submit" value="Yes" class="ui-btn"></input> <button class="ui-btn">No</button></p>
-    </div>
+  <%if @message %>
+  <p class = "message"> <%=@message%> </p>
+  <% end %>
 
-  </p>
+
   <h3><input type="text" name="l1title" id="l1input" class = "inputbox"></input>
         <p id = "titletext" class="text-center">Things To Buy</p>
-        <!-- <button id="titlecheck" class = "check-btn"></button>
-        <button id="titledelete" class = "delete-btn"></button> -->
-  </h3>
+      <button id="titlecheck" class = "check-btn"></button>
+</h3>
+      <div id = "list-items" class = "list-items">
+      <% for item in @items %>
+      <table>
+      <tr>
+      <td>
+        <input id="<%=item.id%>box" type="checkbox" onclick="checkItem(<%=item.id%>)"></input>
+      </td>
+      <td>
+        <form class='buttonForm' action="/items/update/<%=item.id%>" method="post">
+        <input id="<%=item.id%>qinput" type="number" name="quantity" class="quantitybox" placeholder="<%=item.quantity%>"></input>
+        <span id = "<%=item.id%>qtext" class="quantity"><%=item.quantity%></span>
+      </td>
+      <td>
+        <input id="<%=item.id%>input" type="text" name="itemtext" class ="inputbox" placeholder="<%=item.itemtext%>"></input>
+        <span id="<%=item.id%>text"><%=item.itemtext%></span>
+      </td>
+      <td>
+        <input type='submit' id="<%=item.id%>check" onclick="renameItem(<%=item.id%>)" value="" class="check-btn"></input>
+        </form>
+        <button id="<%=item.id%>edit" onclick="editItem(<%=item.id%>)" class = "edit-btn"></button>
+        <form class='buttonForm' action="/items/delete/<%=item.id%>" method="post">
+        <input type="submit" id="<%=item.id%>delete" value="" class="delete-btn"></input>
+        </form>
+      </td>
+      </tr>
+      </table>
 
-      <div align ="center">
-      <div id = "list-items">
-      <p>
-      <% for @items.each do |item| %>
-      <input id="<%=item.id%>box" type="checkbox" onclick="checkItem(<%=item.id%>)"></input>
-      <input id="<%=item.id%>box"type="text" name="name" class ="inputbox"></input>
-      <input type="number" name="quantity" class ="inputnum" placeholder="<%=item.quantity%>"></input>
-      <button id="<%=item.id%>check" onclick="checkItem(<%=item.id%>)"class = "check-btn"></button>
-      <button id="<%=item.id%>delete" onclick="deleteItem(<%=item.id%>)"class = "delete-btn"></button>
-      <span><%=item.itemText%></span>
-      <button id="<%=item.id%>edit" onclick="editItem(<%=item.id%>)" class = "edit-btn"></button>
-        <% end %>
-      </p>
+      <% end %>
+
+        <div id ="add-item" class ="add-item" >
+        <form action="items/create" method="post">
+        <input id="quantityinput" type="number" name="quantity" class="quantityboxADD" placeholder="#"></input>
+        <input id="textinput" type="text" name="itemtext" class ="inputboxADD" placeholder="description"></input>
+        <input type="submit" value="" class="check-btn-add"></input>
+        </form>
+        </div>
+        <p class = "space"> &nbsp; </p>
         <span class = "list-edit-items">
-        <button class="ui-btn">+ add item</button>
-        <!-- <button class="ui-btn">+ edit list</button> -->
+        <button id = "add-item-btn" class="ui-btn" onclick="addBtn()">+ add item</button>
+        <!-- <button class="ui-btn" onclick="editItem(title)">+ edit list</button> -->
         </span>
       </div>
-      </div>
-
-      <button id = "add-list" class = "add-list">+</button>

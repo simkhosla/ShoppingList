@@ -16,3 +16,8 @@
     </form>
     <p> <a href ="/login"> Already signed up?</a></p>
   </div>
+  <% if @message %>
+  <p class ="message">
+    <%=@message %>
+  </p>
+  <%end%>
