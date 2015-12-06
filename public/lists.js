@@ -1,5 +1,4 @@
 
-
 function editItem (id) {
 
     $("#"+id+"edit").hide('fast', function() {
@@ -74,10 +73,75 @@ function editItem (id) {
         });
       };
 
-    function addBtn() {
+//add list item button
+function addItemBtn() {
       $('#')
-      $('#add-item').show('fast', function() {
+      $('#add-list-item').show('fast', function() {
 
       });
       console.log ('add item clicked')
     }
+
+
+
+    function editTodo (id) {
+
+        $("#"+id+"edit").hide('fast', function() {
+          console.log("edit button is hidden")
+        });
+
+        $("#"+id+"text").hide('fast', function() {
+          console.log("text is hidden")
+        });
+
+        var itemText = $("#"+id+"text").text();
+
+        $("#"+id+"input").attr('placeholder', itemText);
+          //puts the current text in as placeholder in input box
+
+
+        $("#"+id+"input").show('fast', function() {
+          //animation occured
+        });
+
+        $("#"+id+"check").show('fast', function() {
+          //animation occured
+        });
+
+      };
+
+
+      function renameTodo (id) {
+
+            var newText = $("#"+id+"input").val();
+            console.log($("#"+id+"input").val());
+
+            $("#"+id+"text").text(newText);
+            //variables for new text
+
+            $("#"+id+"input").hide('fast', function() {
+              //text input box hidden
+            });
+
+
+            $("#"+id+"text").show('fast', function() {
+              //shows item text
+            });
+
+            $("#"+id+"check").hide('fast', function() {
+              //hides check button
+            });
+
+            $("#"+id+"edit").show('fast', function() {
+              //animation occured
+            });
+          };
+
+    //add list item button
+    function addTodoBtn() {
+          $('#')
+          $('#add-todo-item').show('fast', function() {
+
+          });
+          console.log ('add item clicked')
+        }

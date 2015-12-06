@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   get '/' do
     @items = Item.all
+    @todos = ToDo.all
 
     authorization_check
 

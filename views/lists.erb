@@ -14,16 +14,15 @@
   <% end %>
 
 
-  <h3><input type="text" name="l1title" id="l1input" class = "inputbox"></input>
-        <p id = "titletext" class="text-center">Things To Buy</p>
-      <button id="titlecheck" class = "check-btn"></button>
-</h3>
+  <!-- SHOPPING LIST BELOW -->
+<div id = "shoppinglist" class = "list">
+  <h3 class = "shoppinglisthead">Things To Buy </h3>
       <div id = "list-items" class = "list-items">
       <% for item in @items %>
       <table>
       <tr>
       <td>
-        <input id="<%=item.id%>box" type="checkbox" onclick="checkItem(<%=item.id%>)"></input>
+        <input id="<%=item.id%>box" type="checkbox"></input>
       </td>
       <td>
         <form class='buttonForm' action="/items/update/<%=item.id%>" method="post">
@@ -47,7 +46,7 @@
 
       <% end %>
 
-        <div id ="add-item" class ="add-item" >
+        <div id ="add-list-item" class ="add-item" >
         <form action="items/create" method="post">
         <input id="quantityinput" type="number" name="quantity" class="quantityboxADD" placeholder="#"></input>
         <input id="textinput" type="text" name="itemtext" class ="inputboxADD" placeholder="description"></input>
@@ -56,7 +55,53 @@
         </div>
         <p class = "space"> &nbsp; </p>
         <span class = "list-edit-items">
-        <button id = "add-item-btn" class="ui-btn" onclick="addBtn()">+ add item</button>
+        <button id = "add-item-btn" class="ui-btn" onclick="addItemBtn()">+ add item</button>
         <!-- <button class="ui-btn" onclick="editItem(title)">+ edit list</button> -->
         </span>
       </div>
+</div>
+
+<p class = "space"> &nbsp; </p>
+
+
+    <!-- TO DO LIST BELOW -->
+<div id = "todolist" class = "list">
+    <h3 class="todolisthead">Things To Do </h3>
+        <div id = "list-items" class = "list-items">
+        <% for todo in @todos %>
+        <table>
+        <tr>
+        <td>
+          <input id="<%=todo.id%>box" type="checkbox" onclick="check(<%=todo.id%>)"></input>
+        </td>
+        <td>
+          <form class='buttonForm' action="/todos/update/<%=todo.id%>" method="post">
+          <input id="<%=todo.id%>input" type="text" name="itemtext" class ="inputbox" placeholder="<%=todo.itemtext%>"></input>
+          <span id="<%=todo.id%>text"><%=todo.itemtext%></span>
+        </td>
+        <td>
+          <input type='submit' id="<%=todo.id%>check" onclick="rename(<%=todo.id%>)" value="" class="check-btn"></input>
+          </form>
+          <button id="<%=todo.id%>edit" onclick="edit(<%=todo.id%>)" class = "edit-btn"></button>
+          <form class='buttonForm' action="/todos/delete/<%=todo.id%>" method="post">
+          <input type="submit" id="<%=todo.id%>delete" value="" class="delete-btn"></input>
+          </form>
+        </td>
+        </tr>
+        </table>
+
+        <% end %>
+
+          <div id ="add-todo-item" class ="add-item" >
+          <form action="todos/create" method="post">
+          <input id="todotextinput" type="text" name="itemtext" class ="inputboxADD" placeholder="description"></input>
+          <input type="submit" value="" class="check-btn-add"></input>
+          </form>
+          </div>
+          <p class = "space"> &nbsp; </p>
+          <span class = "list-edit-items">
+          <button id = "add-todo-btn" class="ui-btn-todo" onclick="addTodoBtn()">+ add item</button>
+          <!-- <button class="ui-btn" onclick="editItem(title)">+ edit list</button> -->
+          </span>
+        </div>
+  </div>
